@@ -1,2 +1,3 @@
 # PyUiTestTube
-A "Hello World" Project for a UI Testautomation Pipeline
+
+A "Hello World" project for a UI test automation pipeline.
