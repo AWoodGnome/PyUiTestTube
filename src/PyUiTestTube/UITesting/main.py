@@ -1,24 +1,24 @@
 """
 Test automation main file
 """
+import logging
 
-from pywinauto import application
-from pywinauto.keyboard import send_keys
-
-from src.PyUiTestTube.UITesting.configuration.sut_config import sut_name
+from src.PyUiTestTube.UITesting.adapter.adapter_pywinauto import SutAdapter, key_typing
+from src.PyUiTestTube.UITesting.test_data.test_data import test_text
 
 
 def main():
-    app = application.Application()
-    app.start(sut_name + '.exe')
-    sut = app[sut_name]
-    sut.wait('ready')
-    sut.menu_select("Datei->Neu")
-    sut['Edit'].set_edit_text(5 * "=" +
-                              "\r\nHello world\r\n" +
-                              5 * "=")
-    app[sut_name + 'Dialog'].menu_select("Datei->Beenden")
-    send_keys('{TAB}~')
+    """
+    Main script for testing
+    """
+    logging.basicConfig(level=logging.INFO)
+    sut = SutAdapter()
+    sut.start_sut()
+    sut.waiting('ready')
+    sut.menu_select('Datei->Neu')
+    sut.writing(test_text)
+    sut.menu_select('Datei->Beenden')
+    key_typing('{TAB}~')
 
 
 if __name__ == '__main__':
