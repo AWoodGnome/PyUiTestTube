@@ -1,7 +1,6 @@
 """
 Test automation main file
 """
-import logging
 
 from src.PyUiTestTube.UITesting.adapter.adapter_pywinauto import SutAdapter, key_typing
 from src.PyUiTestTube.UITesting.test_data.test_data import test_text
