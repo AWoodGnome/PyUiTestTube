@@ -1,9 +1,9 @@
 """
 Test automation main file
 """
-import pprint
 
 from pywinauto import application
+from pywinauto.keyboard import send_keys
 
 from src.PyUiTestTube.UITesting.configuration.sut_config import sut_name
 
@@ -15,11 +15,10 @@ def main():
     sut.wait('ready')
     sut.menu_select("Datei->Neu")
     sut['Edit'].set_edit_text(5 * "=" +
-                              "\r\nHello world" +
+                              "\r\nHello world\r\n" +
                               5 * "=")
     app[sut_name + 'Dialog'].menu_select("Datei->Beenden")
-    # Not save needs to be clicked
-    sut['Edit'].print_control_identifiers()
+    send_keys('{TAB}~')
 
 
 if __name__ == '__main__':
