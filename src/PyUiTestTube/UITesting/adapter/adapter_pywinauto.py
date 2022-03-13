@@ -1,4 +1,6 @@
 """Adapter functions using pywinauto"""
+import logging
+
 from pywinauto import application
 from pywinauto.keyboard import send_keys
 
@@ -23,6 +25,7 @@ class SutAdapter:
     def __init__(self):
         self.app = None
         self.sut = None
+        logging.basicConfig(level=logging.INFO)
 
     def start_sut(self):
         """

@@ -11,7 +11,6 @@ def main():
     """
     Main script for testing
     """
-    logging.basicConfig(level=logging.INFO)
     sut = SutAdapter()
     sut.start_sut()
     sut.waiting('ready')
