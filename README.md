@@ -7,3 +7,6 @@ The complete pipeline consists out of these components:
 * Jenkins as continuous testing tool
 * Robot Framework as keyword driven test scheduler
 * PyWinAuto as adapter to the software under test
+
+## Requirements
+Make sure that your Python interpreter is in Path and C:\Project_PyUiTestTube\src\PyUiTestTube\UITesting is in PythonPath of the system environment.
