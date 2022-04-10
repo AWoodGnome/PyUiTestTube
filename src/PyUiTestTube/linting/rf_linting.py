@@ -2,9 +2,9 @@
 Linting robot files
 """
 import os
-import subprocess
 
-import rflint
+from rflint import rflint
+
 
 def get_py_files() -> list:
     """
@@ -20,8 +20,11 @@ def get_py_files() -> list:
 
 
 def validate_files(file_list: list):
+    """
+    validate all the files
+    """
     for file in file_list:
-        subprocess.run(f"rflint {file}")
+        rflint.RfLint().run(args=[file])
 
 
 def main():
