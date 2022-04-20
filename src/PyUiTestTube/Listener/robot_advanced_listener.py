@@ -10,7 +10,7 @@ def parse_to_table(attrs):
     """
     Parsing attrs to log_string
     """
-    #print.pprint(attrs)
+    # print.pprint(attrs)
     if 'longname' in attrs:
         name = attrs['longname']
     elif 'kwname' in attrs:
@@ -27,18 +27,18 @@ def parse_to_table(attrs):
     if 'endtime' in attrs:
         end_time = attrs['endtime']
     n = 0
-    column_width = [50, 8, 8]
+    column_width = [100, 17, 17]
+    log_string = "|"
     for variable in [name, start_time, end_time]:
         variable_length = len(variable)
         if variable_length <= column_width[n]:
-            variable += (column_width[n] - variable_length) * " "
-            print((column_width[n] - variable_length))
+            log_string += variable + (column_width[n] - variable_length) * " "+"|"
         else:
-            variable = variable[:column_width[n]]
-        n +=1
-
-    log_string = f"{name} {start_time} {end_time}"
+            log_string += variable[:column_width[n]]+"|"
+        n += 1
+    #log_string = f"{name} {start_time} {end_time}"
     return log_string
+
 
 def write_to_console(attrs):
     """
@@ -55,6 +55,7 @@ class RobotAdvancedListener:
     ROBOT_LISTENER_API_VERSION = 2
 
     def __init__(self):
+        self.attrs = None
         self.name = ""
         self.stack_trace = RobotStackTracer.RobotStackTracer()
 
@@ -65,6 +66,7 @@ class RobotAdvancedListener:
         self.name = name
         self.stack_trace.start_suite(name, attrs)
         write_to_console(attrs)
+        self.attrs = attrs
 
     def start_test(self, name, attrs):
         """
@@ -73,6 +75,7 @@ class RobotAdvancedListener:
         self.name = name
         self.stack_trace.start_test(name, attrs)
         write_to_console(attrs)
+        self.attrs = attrs
 
     def start_keyword(self, name, attrs):
         """
@@ -81,6 +84,7 @@ class RobotAdvancedListener:
         self.name = name
         self.stack_trace.start_keyword(name, attrs)
         write_to_console(attrs)
+        self.attrs = attrs
 
     def end_keyword(self, name, attrs):
         """
@@ -89,6 +93,7 @@ class RobotAdvancedListener:
         self.name = name
         self.stack_trace.end_keyword(name, attrs)
         write_to_console(attrs)
+        self.attrs = attrs
 
     def end_test(self, name, attrs):
         """
@@ -97,6 +102,7 @@ class RobotAdvancedListener:
         self.name = name
         self.stack_trace.end_test(name, attrs)
         write_to_console(attrs)
+        self.attrs = attrs
 
     def end_suite(self, name, attrs):
         """
@@ -105,11 +111,13 @@ class RobotAdvancedListener:
         self.name = name
         self.stack_trace.end_suite(name, attrs)
         write_to_console(attrs)
+        self.attrs = attrs
 
     def library_import(self, name, attrs):
         """
         transfer to robot stack trace
         """
+        self.attrs = attrs
         self.stack_trace.library_import(name, attrs)
         write_to_console(attrs)
 
@@ -117,6 +125,7 @@ class RobotAdvancedListener:
         """
         transfer to robot stack trace
         """
+        self.attrs = attrs
         self.stack_trace.resource_import(name, attrs)
         write_to_console(attrs)
 
@@ -130,4 +139,4 @@ class RobotAdvancedListener:
         """
         Closing robot
         """
-        print(f"closing {self.name}")
+        write_to_console(self.attrs)
