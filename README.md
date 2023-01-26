@@ -10,3 +10,6 @@ The complete pipeline consists out of these components:
 
 ## Requirements
 Make sure that your Python interpreter is in Path and C:\Project_PyUiTestTube\src\PyUiTestTube\UITesting is in PythonPath of the system environment.
+
+## Robot Listener
+To work with the Robot Advanced Listener correctly you need to add --quiet --listener Listener.robot_advanced_listener.RobotAdvancedListener to the arguments, you run Robot Framework.
